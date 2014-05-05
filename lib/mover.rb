@@ -129,7 +129,7 @@ module Mover
         else
           conditions.gsub!(to[:table], 't')
           conditions.gsub!(from[:table], 'f')
-          conditions.gsub!(/\"id\"/,'f.id') if connection.class.to_s.include?('PostgreSQL')
+          conditions.gsub!(/\"f\".\"id\"/,'f.id') if connection.class.to_s.include?('PostgreSQL')
           
           select = insert.values.collect { |i| i.include?("'") ? i : "f.#{i}" }
           set = insert.collect do |column, value|
